@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>גישה נדחתה</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      background: #1c1c1c;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      color: #ff4c4c;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>⛔ גישה נדחתה</h1>
+    <p>הסיסמה שהוזנה שגויה</p>
+    <button onclick="goBack()">נסה שוב</button>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "store.html"; // חזרה לדף הראשי
+    }
+  </script>
+
+</body>
+</html>
