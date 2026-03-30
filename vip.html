@@ -13,15 +13,23 @@ body{
     margin-top:100px;
 }
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px;
   font-size: 28px;
   font-weight: bold;
   background-color: #222;
 }
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
 input{
     padding:10px;
     font-size:16px;
-    width: 50%;
 }
 .main-image {
       margin: 30px auto;
@@ -62,7 +70,8 @@ button{
 
 <body>
 <header>
-  ברוכים הבאים לאיזור האישי
+  <div>ברוכים הבאים לאיזור האישי</div>
+  <div class="home-button" onclick="window.location.href='index.html'">🏠</div>
 </header>
 <script>
   const password = "1234"; // הסיסמה שלך
@@ -72,14 +81,14 @@ button{
         window.location.href = "denied.html"; // דף שגיאה
   }
 </script>
+<div class="container">
+    <img src="3DStore_Logo.jpg" alt="Logo" class="main-image">
 
-<img src="3DStore_Logo.jpg" alt="Logo" class="main-image"">
+    <input id="serialInput" placeholder="הכנס מספר כרטיס">
+    <button onclick="searchSerial()">חפש</button>
 
-<input id="serialInput" placeholder="הכנס מספר כרטיס">
-<button onclick="searchSerial()">חפש</button>
-
-<div id="result"></div>
-
+    <div id="result"></div>
+</div>
 <script>
 
 const database = [
@@ -107,6 +116,5 @@ function searchSerial(){
 }
 
 </script>
-<div class="home-button" onclick="window.location.href='index.html'">🏠</div>
 </body>
 </html>
