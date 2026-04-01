@@ -1,253 +1,142 @@
 <!DOCTYPE html>
 <html lang="he">
 <head>
-<meta charset="UTF-8">
-<title>חידות לפסח 🐣</title>
-<style>
-body {
-    font-family: Arial;
-    text-align: center;
-    background: linear-gradient(to bottom, #fff8dc, #ffd700);
-    direction: rtl;
-}
+    <meta charset="UTF-8">
+    <title>חידות לפסח 🐣</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #fff8dc, #ffd700);
+            direction: rtl;
+            margin-top: 50px;
+        }
 
-h1 {
-    color: #8B0000;
-}
+        h1 {
+            color: #8B0000;
+        }
 
-.quiz-box {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    width: 300px;
-    margin: auto;
-    box-shadow: 0 0 10px gray;
-}
+        .quiz-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-button {
-    margin: 5px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: #ffcc00;
-}
+        button {
+            margin: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background: #ffcc00;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-button:hover {
-    background: orange;
-}
-</style>
+        button:hover {
+            background: orange;
+            transform: scale(1.05);
+        }
+
+        #score {
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🎉 חידון פסח 🎉</h1>
+    <h1>🎉 חידון פסח 🎉</h1>
 
-<div class="quiz-box" id="main-container">
-    <div id="start-screen">
-        <h2>מוכנים לחידון? 🍷</h2>
-        <button onclick="startGame()">התחל משחק</button>
+    <div class="quiz-box" id="main-container">
+        <div id="start-screen">
+            <h2>מוכנים לחידון? 🍷</h2>
+            <p>לחצו על הכפתור כדי להתחיל ולשמוע מוזיקה</p>
+            <button onclick="startGame()">התחל משחק 🎵</button>
+        </div>
+        
+        <div id="quiz-content" style="display: none;">
+            <h2 id="question">טוען שאלה...</h2>
+            <div id="answers"></div>
+            <h3 id="score">ניקוד: 0</h3>
+        </div>
     </div>
-    
-    <div id="quiz-content" style="display: none;">
-        <h2 id="question">טוען שאלה...</h2>
-        <div id="answers"></div>
-        <h3 id="score">ניקוד: 0</h3>
-    </div>
-</div>
 
-<audio id="music" loop>
-    <source src="https://www.prog.co.il/attachments/02-%D7%A2%D7%91%D7%93%D7%99%D7%9D-%D7%94%D7%99%D7%99%D7%A0%D7%95-mp3.632131/" type="audio/mpeg">
-</audio>
+    <audio id="music" loop>
+        <source src="https://www.prog.co.il/attachments/02-%D7%A2%D7%91%D7%93%D7%99%D7%9D-%D7%94%D7%99%D7%99%D7%A0%D7%95-mp3.632131/" type="audio/mpeg">
+    </audio>
 
+    <script>
+        const questions = [
+            { q: "מה אוכלים בפסח?", a: ["פיתה", "מצה", "לחמניה", "פסטה"], correct: 1 },
+            { q: "איך נקרא ערב חג הפסח?", a: ["סעודת חג", "ליל הסדר", "מסיבת פסח", "לילה לבן"], correct: 1 },
+            { q: "כמה מכות היו במצרים?", a: ["5", "7", "10", "12"], correct: 2 },
+            { q: "מה שותים בליל הסדר?", a: ["מים", "מיץ תפוזים", "4 כוסות יין", "קולה"], correct: 2 },
+            { q: "מה הפירוש של המילה אפיקומן?", a: ["עוגיה", "קינוח", "הפתעה", "עוגה"], correct: 1 },
+            { q: "באיזה חודש יצאו בני ישראל ממצרים?", a: ["ניסן", "שבט", "תמוז", "אלול"], correct: 0 },
+            { q: "מה היא המכה האחרונה?", a: ["דם", "כינים", "מכת הבכורות", "חושך"], correct: 2 },
+            { q: "מה יוצא דופן?", a: ["דם", "צפרדע", "כינים", "מצה"], correct: 3 }
+        ];
 
-<script>
-const questions = [
-    {
-        q: "מה אוכלים בפסח?",
-        a: ["פיתה", "מצה", "לחמניה", "פסטה"],
-        correct: 1
-    },
-    {
-        q: "איך נקרא ערב חג הפסח?",
-        a: ["סעודת חג", "ליל הסדר", "מסיבת פסח", "לילה לבן"],
-        correct: 1
-    },
-    {
-        q: "כמה מכות היו במצרים?",
-        a: ["5", "7", "10", "12"],
-        correct: 2
-    },
-    {
-        q: "מה שותים בליל הסדר?",
-        a: ["מים", "מיץ תפוזים", "4 כוסות יין", "קולה"],
-        correct: 2
+        let current = 0;
+        let score = 0;
 
-    },
-    {
-        q: "מה הפרוש של המילה אפיקומן?",
-        a: ["עוגיה", "קינוח", "הפתעה", "עוגה"],
-        correct: 2
+        function startGame() {
+            // הפעלת מוזיקה
+            const audio = document.getElementById("music");
+            audio.play().catch(e => console.log("Music play blocked", e));
 
-    },
-    {
-        q: "באיזה חודש יצאו בני ישראל ממצרים? ?",
-        a: ["ניסן", "שבט", "תמוז", "אלול"],
-        correct: 1
+            // החלפת מסכים
+            document.getElementById("start-screen").style.display = "none";
+            document.getElementById("quiz-content").style.display = "block";
 
-    },
-    {
-        q: "מה היא המכה האחרונה? ?",
-        a: ["דם", "כינים", "מקת הבכורות", "חושך"],
-        correct: 2
+            // טעינת שאלה ראשונה
+            loadQuestion();
+        }
 
-    },
-    {
-        q: "מה יוצה דופן? ?",
-        a: ["דם", "כינים", "מקת הבכורות", "אלול"],
-        correct: 1
-    }
-];
+        function loadQuestion() {
+            const q = questions[current];
+            document.getElementById("question").innerText = q.q;
+            const answersDiv = document.getElementById("answers");
+            answersDiv.innerHTML = "";
 
-let current = 0;
-let score = 0;
+            q.a.forEach((ans, index) => {
+                const btn = document.createElement("button");
+                btn.innerText = ans;
+                btn.onclick = () => checkAnswer(index);
+                answersDiv.appendChild(btn);
+            });
+        }
 
-function loadQuestion() {
-    const q = questions[current];
-    document.getElementById("question").innerText = q.q;
-    const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
+        function checkAnswer(index) {
+            if(index === questions[current].correct) {
+                score++;
+                alert("נכון! 🎉");
+            } else {
+                alert("לא נכון 😅");
+            }
 
-    q.a.forEach((ans, index) => {
-        const btn = document.createElement("button");
-        btn.innerText = ans;
-        btn.onclick = () => checkAnswer(index);
-        answersDiv.appendChild(btn);
-    });
-}
+            current++;
 
-function checkAnswer(index) {
-    if(index === questions[current].correct) {
-        score++;
-        alert("נכון! 🎉");
-    } else {
-        alert("לא נכון 😅");
-    }
+            if(current < questions.length) {
+                loadQuestion();
+            } else {
+                document.getElementById("quiz-content").innerHTML =
+                    "<h2>סיימת! 🎉</h2><h3>הניקוד הסופי שלך: " + score + " מתוך " + questions.length + "</h3>" +
+                    "<button onclick='location.reload()'>שחק שוב</button>";
+            }
 
-    current++;
-
-    if(current < questions.length) {
-        loadQuestion();
-    } else {
-        document.querySelector(".quiz-box").innerHTML =
-            "<h2>סיימת! 🎉</h2><h3>הניקוד שלך: " + score + "</h3>";
-    }
-
-    document.getElementById("score").innerText = "ניקוד: " + score;
-}
-
-loadQuestion();
-</script>
-
-</body>
-</html><script>
-const questions = [
-    {
-        q: "מה אוכלים בפסח?",
-        a: ["פיתה", "מצה", "לחמניה", "פסטה"],
-        correct: 1
-    },
-    {
-        q: "איך נקרא ערב חג הפסח?",
-        a: ["סעודת חג", "ליל הסדר", "מסיבת פסח", "לילה לבן"],
-        correct: 1
-    },
-    {
-        q: "כמה מכות היו במצרים?",
-        a: ["5", "7", "10", "12"],
-        correct: 2
-    },
-    {
-        q: "מה שותים בליל הסדר?",
-        a: ["מים", "מיץ תפוזים", "4 כוסות יין", "קולה"],
-        correct: 2
-
-    },
-    {
-        q: "מה הפרוש של המילה אפיקומן?",
-        a: ["עוגיה", "קינוח", "הפתעה", "עוגה"],
-        correct: 2
-
-    },
-    {
-        q: "באיזה חודש יצאו בני ישראל ממצרים? ?",
-        a: ["ניסן", "שבט", "תמוז", "אלול"],
-        correct: 1
-
-    },
-    {
-        q: "מה היא המכה האחרונה? ?",
-        a: ["דם", "כינים", "מקת הבכורות", "חושך"],
-        correct: 2
-
-    },
-    {
-        q: "מה יוצה דופן? ?",
-        a: ["דם", "כינים", "מקת הבכורות", "אלול"],
-        correct: 1
-    }
-];
-
-let current = 0;
-let score = 0;
-
-function loadQuestion() {
-    const q = questions[current];
-    document.getElementById("question").innerText = q.q;
-    const answersDiv = document.getElementById("answers");
-    answersDiv.innerHTML = "";
-
-    q.a.forEach((ans, index) => {
-        const btn = document.createElement("button");
-        btn.innerText = ans;
-        btn.onclick = () => checkAnswer(index);
-        answersDiv.appendChild(btn);
-    });
-}
-
-function checkAnswer(index) {
-    if(index === questions[current].correct) {
-        score++;
-        alert("נכון! 🎉");
-    } else {
-        alert("לא נכון 😅");
-    }
-
-    current++;
-
-    if(current < questions.length) {
-        loadQuestion();
-    } else {
-        document.querySelector(".quiz-box").innerHTML =
-            "<h2>סיימת! 🎉</h2><h3>הניקוד שלך: " + score + "</h3>";
-    }
-
-    document.getElementById("score").innerText = "ניקוד: " + score;
-}
-
-function startGame() {
-    // 1. הפעלת המוזיקה
-    const audio = document.getElementById("music");
-    audio.play().catch(error => console.log("הדפדפן חסם את האודיו:", error));
-
-    // 2. החלפת התצוגה ממסך פתיחה לחידון
-    document.getElementById("start-screen").style.display = "none";
-    document.getElementById("quiz-content").style.display = "block";
-
-    // 3. טעינת השאלה הראשונה
-    loadQuestion();
-}
-</script>
-
+            document.getElementById("score").innerText = "ניקוד: " + score;
+        }
+    </script>
 </body>
 </html>
