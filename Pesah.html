@@ -1,39 +1,19 @@
-<!DOCTYPE html>
-<html lang="he">
-<head>
-<meta charset="UTF-8">
-<title>חידות לפסח 🐣</title>
-<style>
-body {
-    font-family: Arial;
-    text-align: center;
-    background: linear-gradient(to bottom, #fff8dc, #ffd700);
-    direction: rtl;
-}
+<div class="quiz-box" id="main-container">
+    <div id="start-screen">
+        <h2>מוכנים לחידון? 🍷</h2>
+        <button onclick="startGame()">התחל משחק</button>
+    </div>
+    
+    <div id="quiz-content" style="display: none;">
+        <h2 id="question">טוען שאלה...</h2>
+        <div id="answers"></div>
+        <h3 id="score">ניקוד: 0</h3>
+    </div>
+</div>
 
-h1 {
-    color: #8B0000;
-}
-
-.quiz-box {
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    width: 300px;
-    margin: auto;
-    box-shadow: 0 0 10px gray;
-}
-
-button {
-    margin: 5px;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    background: #ffcc00;
-}
-
-button:hover {
+<audio id="music" loop>
+    <source src="https://www.prog.co.il/attachments/02-%D7%A2%D7%91%D7%93%D7%99%D7%9D-%D7%94%D7%99%D7%99%D7%A0%D7%95-mp3.632131/" type="audio/mpeg">
+</audio>
     background: orange;
 }
 </style>
