@@ -63,10 +63,12 @@
 
   <!-- החלף את הנתיב לתמונה שלך -->
   <img src="3DStore_Logo.jpg" alt="תמונה ראשית" class="main-image">
+  <h2> לידיעתכם, עברנו לאתר חדש להזמנות</h2>
 
   <div class="buttons">
     <button onclick="goLogin()">לאיזור האישי</button>
     <button onclick="goStore()">מחירון</button>
+    <button onclick="goToNewSite()">לאתר החדש ולהזמנות</button>
   </div>
 
   <!-- החלף לקישור לקבוצת הוואטסאפ שלך -->
@@ -81,6 +83,10 @@
 
     function goStore() {
       window.location.href = "store.html";
+    }
+    
+    function goToNewSite() {
+      window.location.href = "https://amitwort.github.io/3D-Store/index.html"; // צור עמוד התחברות אם צריך
     }
   </script>
 
